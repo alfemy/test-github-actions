@@ -17,8 +17,8 @@ jobs:
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
-      - run: date > date.html
-      - run: cat date.html
+      - run: date > www/index.html
+      - run: cat www/index.html
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: Autocommit
