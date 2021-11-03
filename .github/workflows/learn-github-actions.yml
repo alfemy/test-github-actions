@@ -1,8 +1,7 @@
-name: learn-github-actions
+name: continuously-commit-and-push
 on:
   schedule:
-    # * is a special character in YAML so you have to quote this string
-    - cron:  '*/10 * * * *'
+    - cron:  '*/20 * * * *'
 jobs:
   Commit-current-date:
     runs-on: ubuntu-latest
@@ -13,12 +12,10 @@ jobs:
           ref: ${{ github.head_ref }}
 
       - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
-      - name: List files in the repository
-        run: |
-          ls ${{ github.workspace }}
-      - run: date > www/index.html
-      - run: cat www/index.html
-      - uses: stefanzweifel/git-auto-commit-action@v4
+      - name: Write the current date to the index.html
+        run: date > www/index.html
+
+      - name: Commit back all changed and new files
+        uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: Autocommit
